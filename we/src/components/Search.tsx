@@ -70,6 +70,7 @@ return (
                 />
             </div>
         </div>
+        
     </form>
     <div>
         <ApiWeather inputs={inputs} />

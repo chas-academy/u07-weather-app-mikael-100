@@ -16,18 +16,21 @@ const ApiKey: string = '587d7a5441854067880152053241504';
 
 const ApiWeather: React.FC<Props>  = ({inputs}) => {
 
-const [vader, setVader] = useState(inputs);
+// const [vader, setVader] = useState(null);
 
+
+useEffect(() => {
 const hamtaVader = async () => {
     const url: string = `http://api.weatherapi.com/v1/forecast.json?key=${ApiKey}&q=${inputs.ord}&days=${inputs.day}&aqi=no&alerts=no`;
     const reponse = await fetch(url);
     const result = await reponse.json();
-    setVader(result);
+    // setVader(result);
     console.log(result);
 }
-useEffect(() => {
 
-},[vader])
+     hamtaVader();
+    }, [inputs]); // Lägg till inputs som ett beroende i useEffect
+
 
 // Problem med att den hämtar konstant
 
