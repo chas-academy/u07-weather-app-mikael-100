@@ -27,6 +27,13 @@ Värdenna från select är nu bundna till const name och const value. Dessa sät
 
 ![alt text](<MIKAEL README BILDER/image4.png>)
 
+Jag fick ett problem med att när jag kopplade mig till API:et så skickades en reguest till API:et varjegång jag skrev en bokstav i textfältet i min input för att den var kopplad till forData på onChange. Jag ville fordfatande ha kvar day och unit på onChange men fick ta bort den från inputen. Jag lade in en knapp och till knappen kopplade jag en funktion på onclick.
 
+![alt text](<MIKAEL README BILDER/image5.png>)
+
+Denna klickFunktion börjar med att hämta elementet från domen som har id ord. Efter det används .value för att komma åt värdet från de elementet och binda det till ordValue. Efter det så anväder jag setInputs och knyter värdet på ordValue till variabeln ord som käggs till i inputs.
+
+
+![alt text](<MIKAEL README BILDER/image6.png>)
 
 

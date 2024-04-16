@@ -13,7 +13,8 @@ interface Inputs {
 const Search = () => {
     
 
-const [inputs, setInputs] = useState<Inputs>({day: "", unit: "", ord: ""});
+const [inputs, setInputs] = useState<Inputs>({day: "1", unit: "Celsius", ord: ""});
+
 
   
 
@@ -21,8 +22,13 @@ const formData = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
     const name = event.target.name;
     const value = event.target.value;
     setInputs(values => ({...values, [name]: value}))
-
 }
+const klickFunktion = () => {
+    const inputElement = document.getElementById("ord") as HTMLInputElement; 
+    const ordValue = inputElement.value; 
+    console.log(ordValue); 
+    setInputs(prevInputs => ({ ...prevInputs, ord: ordValue }));
+};
 
 
 return (
@@ -34,12 +40,12 @@ return (
             <select 
             name="day" 
             id="day"
-            value={inputs.day || "1"}
+            value={inputs.day}
             // defaultValue={"1"}
             onChange={formData}
             
             >
-                <option value="1" >1-Dygn</option>
+                <option value="1">1-Dygn</option>
                 <option value="2">2-Dygn</option>
                 <option value="3">3-Dygn</option>
                 <option value="4">4-Dygn</option>
@@ -49,7 +55,7 @@ return (
             <select
             name="unit" 
             id="unit"
-            value={inputs.unit || "Celcius"}
+            value={inputs.unit}
             // defaultValue={"Celcius"}
             onChange={formData}
 
@@ -65,11 +71,12 @@ return (
                 className="border-2 border-black rounded-full"
                 name="ord"
                 id="ord"
-                value={inputs.ord}
-                onChange={formData}
+                // value={inputs.ord}
+                // onChange={formData}
                 />
             </div>
-        </div>
+                <button type="button" onClick={klickFunktion}>Sök</button>        
+            </div>
         
     </form>
     <div>
