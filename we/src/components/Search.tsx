@@ -29,7 +29,7 @@ const klickFunktion = () => {
     console.log(ordValue); 
     setInputs(prevInputs => ({ ...prevInputs, ord: ordValue }));
 };
-
+// 
 
 return (
     <>
