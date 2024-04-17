@@ -10,12 +10,12 @@ interface Props {
     };
 }
 
-interface WeatherData {
-    name: string,
-    region: string,
-}
+// interface WeatherData {
+//     name: string,
+//     region: string,
+// }
 
-const ApiKey: string = '587d7a5441854067880152053241504';
+const ApiKey: string = import.meta.env.VITE_API_KEY;
 
 
 
@@ -24,22 +24,31 @@ const ApiWeather: React.FC<Props>  = ({inputs}) => {
 
     // Gör ett interface av den datan du vill displaya från apit
 
+    // api.openweathermap.org/data/2.5/forecast?lat=11&lon=11&units=metric&units=imperial&q=Skövde&appid=466407c762de460c649fe1211434f047
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const [vader , setVader] = useState<WeatherData | null>(null);
+    const [vader , setVader]: any = useState(null);
 
 const hamtaVader = async (inputs: {day: string, unit: string, ord: string}) => {
-    console.log(inputs);
-    const url: string = `http://api.weatherapi.com/v1/forecast.json?key=${ApiKey}&q=${inputs.ord}&days=${inputs.day}&aqi=no&alerts=no`;
+    // console.log(inputs);
+    const url: string = `http://api.openweathermap.org/data/2.5/${inputs.day}?lat=11&lon=11&units=${inputs.unit}&q=${inputs.ord}&appid=${ApiKey}`;
+    
     const reponse = await fetch(url);
+
     const result = await reponse.json();
-    const WeaterData: WeatherData = {
-        name: result.location.name,
-        region: result.location.region,
-    }
-    // setVader(result);
-    console.log(result);
-    setVader(WeaterData);
-}
+     console.log(result);
+   
+    setVader(result);
+} 
+
+// useEffect(() => {
+//     console.log(inputs);
+//     hamtaVader(inputs);
+// }
+// //   console.log(vader) 
+//     , []); // Lägg till inputs som ett beroende i useEffect
+
+
 
 useEffect(() => {
     console.log(inputs);
@@ -55,10 +64,8 @@ if (inputs && inputs.day && inputs.ord) {
             <p>Hello</p>
                 {vader && 
                     <>
-                        <p>Plats: {vader.name}</p>
-                        <p>Plats: {vader.region}</p>
-                        {/* <p>Temperatur: {vader.current.condition.text} °C</p> */}
-                        {/* Lägg till fler data här */}
+                       {/* { <><p>Plats: {vader.city.name}</p><p>Plats: {vader.city.name}</p></>
+} */}
                     </>
                 }
             </div>

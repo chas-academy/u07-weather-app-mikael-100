@@ -13,7 +13,7 @@ interface Inputs {
 const Search = () => {
     
 
-const [inputs, setInputs] = useState<Inputs>({day: "1", unit: "Celsius", ord: ""});
+const [inputs, setInputs] = useState<Inputs>({day: "weather", unit: "metric", ord: ""});
 
 
   
@@ -45,11 +45,11 @@ return (
             onChange={formData}
             
             >
-                <option value="1">1-Dygn</option>
-                <option value="2">2-Dygn</option>
+                <option value="weather">1-Dygn</option>
+                {/* <option value="2">2-Dygn</option>
                 <option value="3">3-Dygn</option>
-                <option value="4">4-Dygn</option>
-                <option value="5">5-Dygn</option>
+                <option value="4">4-Dygn</option> */}
+                <option value="forecast">5-Dygn</option>
 
             </select>
             <select
@@ -60,8 +60,8 @@ return (
             onChange={formData}
 
             >
-                <option value="Celcius">Celcius</option>
-                <option value="Fahrenheit">Fahrenheit</option>
+                <option value="metric">Celcius</option>
+                <option value="imperial">Fahrenheit</option>
             </select>
             </div>
             <div>
@@ -75,7 +75,9 @@ return (
                 // onChange={formData}
                 />
             </div>
-                <button type="button" onClick={klickFunktion}>Sök</button>        
+                <button type="button" onClick={klickFunktion}>Sök</button>  
+                
+                 {/* inclick=(() => klickDunktion)     Kankse uppgradera till denna. denna gör så att inte funktionen triggas vid laddning */}
             </div>
         
     </form>
