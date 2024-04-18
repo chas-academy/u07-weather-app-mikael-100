@@ -1,14 +1,44 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
-import Search from './components/Search.tsx'
-import ApiWeather from './components/ApiWeather.tsx'
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
+import Search from "./components/Search.tsx";
+import {
+  Link,
+  Outlet,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
+import GeolocationComponent from "./pages/geolacation/GeolocationComponent.tsx";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <>
+        <App></App>
+        <div>
+          <h1>Hello</h1>
+          <Link to={"app2"}>Om Oss</Link>
+        </div>
+        <Search></Search>
+        <GeolocationComponent></GeolocationComponent>
+        <Outlet></Outlet>
+      </>
+    ),
+
+    children: [
+      { path: "app", element: <h1>This is children</h1> },
+      { path: "app2", element: <h1>This is children2</h1> },
+      {
+        path: "geolacation",
+        element: <GeolocationComponent></GeolocationComponent>,
+      },
+    ],
+  },
+]);
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <>
-    <App />
-    <Search></Search>
-    {/* <ApiWeather></ApiWeather> */}
-  </>,
-)
+    <RouterProvider router={router} />
+  </>
+);
