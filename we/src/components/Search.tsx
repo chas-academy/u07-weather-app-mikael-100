@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ApiWeather from "../components/ApiWeather";
 
 interface Inputs {
@@ -28,6 +28,32 @@ const Search = () => {
     setInputs((prevInputs) => ({ ...prevInputs, ord: ordValue }));
   };
   //
+
+  // Geoloaction
+  useEffect(() => {
+    getLocation(); // Hämta användarens position när komponenten monteras
+  }, []);
+
+  const getLocation = () => {
+    if (!navigator.geolocation) {
+      console.log("Tyvärr har du ingen Geolocation");
+    } else {
+      console.log("Laddar...");
+    }
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        console.log("Position hämtad");
+        setInputs((prevInputs) => ({
+          ...prevInputs,
+          lat: String(position.coords.latitude),
+          lng: String(position.coords.longitude),
+        }));
+      },
+      () => {
+        console.log("Kan inte nå din position");
+      }
+    );
+  };
 
   return (
     <>

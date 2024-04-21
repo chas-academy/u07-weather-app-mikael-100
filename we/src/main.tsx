@@ -8,7 +8,7 @@ import {
   RouterProvider,
   createBrowserRouter,
 } from "react-router-dom";
-import GeolocationComponent from "./pages/geolacation/GeolocationComponent.tsx";
+// import GeolocationComponent from "./pages/geolacation/GeolocationComponent.tsx";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
           <Link to={"app2"}>Om Oss</Link>
         </div>
         <Search></Search>
-        <GeolocationComponent></GeolocationComponent>
+        {/* <GeolocationComponent></GeolocationComponent> */}
         <Outlet></Outlet>
       </>
     ),
@@ -29,10 +29,6 @@ const router = createBrowserRouter([
     children: [
       { path: "app", element: <h1>This is children</h1> },
       { path: "app2", element: <h1>This is children2</h1> },
-      {
-        path: "geolacation",
-        element: <GeolocationComponent></GeolocationComponent>,
-      },
     ],
   },
 ]);
