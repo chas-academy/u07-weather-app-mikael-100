@@ -53,8 +53,36 @@ const ApiWeather: React.FC<Props> = ({ inputs }) => {
         <p>Hello</p>
         {vader && (
           <>
-            {/* { <><p>Plats: {vader.city.name}</p><p>Plats: {vader.city.name}</p></>
-} */}
+            <>
+              <p>Plats: {vader.name}</p>
+
+              {vader.weather && vader.weather[0] && (
+                <img
+                  src={`http://openweathermap.org/img/wn/${vader.weather[0].icon}.png`}
+                  alt="Weather Icon"
+                />
+              )}
+
+              <p>Temp: {vader.main && vader.main.temp}</p>
+              <p>Vinstryrka: {vader.wind && vader.wind.speed}</p>
+              <p>Luftfuktighet: {vader.main && vader.main.humidity}</p>
+              <p>
+                Soluppgång:{" "}
+                {vader.ses &&
+                  vader.sys.sunrise &&
+                  new Date(vader.sys.sunrise * 1000)
+                    .toLocaleTimeString()
+                    .slice(0, -3)}
+              </p>
+              <p>
+                Solnedgång:{" "}
+                {vader.sys &&
+                  vader.sys.sunset &&
+                  new Date(vader.sys.sunset * 1000)
+                    .toLocaleTimeString()
+                    .slice(0, -3)}
+              </p>
+            </>
           </>
         )}
       </div>
