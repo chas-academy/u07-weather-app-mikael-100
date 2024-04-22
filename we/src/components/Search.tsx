@@ -5,6 +5,8 @@ interface Inputs {
   day: string;
   unit: string;
   ord: string;
+  lng: string;
+  lat: string;
 }
 
 const Search = () => {
@@ -12,6 +14,8 @@ const Search = () => {
     day: "weather",
     unit: "metric",
     ord: "",
+    lng: "",
+    lat: "",
   });
 
   const formData = (

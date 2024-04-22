@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+
 interface Props {
   inputs: {
     day: string;
@@ -8,6 +9,13 @@ interface Props {
     lat: string;
     lng: string;
   };
+}
+
+interface weather {
+  description: string;
+  icon: string;
+  id: number;
+  main: string;
 }
 
 interface vaderLista {
@@ -21,33 +29,38 @@ interface vaderLista {
   weather: weather[];
 }
 
+// Här importeras nyckeln från .env-filen
+
 const ApiKey: string = import.meta.env.VITE_API_KEY;
 
 const ApiWeather: React.FC<Props> = ({ inputs }) => {
-  // Gör ett interface av den datan du vill displaya från apit
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [vader, setVader]: any = useState(null);
 
-  const hamtaVader = async (inputs: {
-    day: string;
-    unit: string;
-    ord: string;
-    lat: string;
-    lng: string;
-  }) => {
-    // console.log(inputs);
-    const url: string = `http://api.openweathermap.org/data/2.5/${inputs.day}?lat=${inputs.lat}&lon=${inputs.lng}&units=${inputs.unit}&q=${inputs.ord}&appid=${ApiKey}`;
+const hamtaVader = async (inputs: {
+  day: string;
+  unit: string;
+  ord: string;
+  lat: string;
+  lng: string;
+}) => {
+  try {
+    const url = `http://api.openweathermap.org/data/2.5/${inputs.day}?lat=${inputs.lat}&lon=${inputs.lng}&units=${inputs.unit}&q=${inputs.ord}&appid=${ApiKey}`;
+    const response = await fetch(url);
 
-    // const url: string = `http://api.openweathermap.org/data/2.5/${inputs.day}?lat=${inputs.lat}&lon=${inputs.lng}&appid=${ApiKey}`;
+    if (!response.ok) {
+      throw new Error("Något blev fel med sökningen!");
+    }
 
-    const reponse = await fetch(url);
-
-    const result = await reponse.json();
+    const result = await response.json();
     console.log(result);
 
     setVader(result);
-  };
+  } catch (error) {
+    console.error("Kunde inte hämta väder data:", error);
+  }
+};
 
   useEffect(() => {
     console.log("Inputs in ApiWeather:", inputs);
@@ -56,7 +69,6 @@ const ApiWeather: React.FC<Props> = ({ inputs }) => {
       hamtaVader(inputs);
     }
 
-    //   console.log(vader)
   }, [inputs]); // Lägg till inputs som ett beroende i useEffect
 
   // Denna if kontrollerar om vader är null eller om vader.main är lika med null om detta är sant returneras loading...
@@ -80,51 +92,161 @@ const ApiWeather: React.FC<Props> = ({ inputs }) => {
                 vader.main.humidity &&
                 vader.name && (
                   <>
-                    <p>Plats: {vader.name}</p>
+                    <div className="items-center inline-block">
+                      <p className="text-xl font-bold">{vader.name}</p>
+                      <p
+                        className={`p-6 text-5xl ${
+                          vader.main.temp >= 1
+                            ? "text-red-600"
+                            : "text-blue-600"
+                        }`}
+                      >
+                        {vader.main.temp.toFixed(0)}
+                      </p>
 
-                    <img
-                      src={`http://openweathermap.org/img/wn/${vader.weather[0].icon}.png`}
-                      alt="Weather Icon"
-                    />
+                      <div className="flex">
+                        <p>Vinstryrka: {vader.wind.speed}</p>
+                        <p>Luftfuktighet: {vader.main.humidity}</p>
+                        <p>
+                          Soluppgång:{" "}
+                          {new Date(vader.sys.sunrise * 1000)
+                            .toLocaleTimeString()
+                            .slice(0, -3)}
+                        </p>
+                        <p>
+                          Solnedgång:{" "}
+                          {new Date(vader.sys.sunset * 1000)
+                            .toLocaleTimeString()
+                            .slice(0, -3)}
+                        </p>
+                        <p>{vader.weather[0].description}</p>
 
-                    <p>Temp: {vader.main.temp}</p>
-                    <p>Vinstryrka: {vader.wind.speed}</p>
-                    <p>Luftfuktighet: {vader.main.humidity}</p>
-                    <p>
-                      Soluppgång:{" "}
-                      {new Date(vader.sys.sunrise * 1000)
-                        .toLocaleTimeString()
-                        .slice(0, -3)}
-                    </p>
-                    <p>
-                      Solnedgång:{" "}
-                      {new Date(vader.sys.sunset * 1000)
-                        .toLocaleTimeString()
-                        .slice(0, -3)}
-                    </p>
+                        <img
+                          src={`http://openweathermap.org/img/wn/${vader.weather[0].icon}.png`}
+                          alt="Weather Icon"
+                        />
+                      </div>
+                    </div>
                   </>
                 )}
             </div>
             <div>
               {vader.list && (
                 <>
-                  <h1>{vader.city.name}</h1>
-                  {vader.list.map((item: vaderLista, index: number) => (
-                    <div className="flex mx-auto justify-center shadow border-10 border-black mt-4 bg-white-500 hover:bg-blue-200">
-                      <div>
-                        <div key={index} className="inline-block flex">
-                          <p>Temperatur: {item.main.temp}</p>
-                          <br />
-                          <p>Vindstyrka: {item.wind.speed}</p>
-                          <p>Datum: {item.dt_txt.slice(0, -6)}</p>
-                          <img
-                            alt=""
-                            src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                  <h1 className="">{vader.city.name}</h1>
+                  <table className="mx-auto border-collapse mt-4 shadow-lg">
+                    <thead className="sticky top-0 bg-white">
+                      <tr className="">
+                        <th className="p-4">Temperatur</th>
+                        <th className="p-4">Vindstyrka</th>
+                        <th className="p-4">Datum</th>
+                        <th className="p-4">Väder</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {/* {vader.list.filter(day => new Date(day.dt_txt).getDate() !== new Date(Date.now()).getDate() && new Date(day.dt_txt).getHours() === 12 ).map((item: vaderLista, index: number) => ( */}
+
+                      {vader.list
+                        .filter(
+                          (day) =>
+                            new Date(day.dt_txt).getDate() ===
+                              new Date(Date.now()).getDate()
+                        )
+                        .map((item: vaderLista, index: number) => (
+                          <tr
+                            key={index}
+                            className="shadow border-10 border-black bg-white-500 hover:bg-blue-200 mb-5"
+                          >
+                            <td
+                              className={`py-4 text-4xl ${
+                                parseFloat(item.main.temp.toFixed(0)) >= 1
+                                  ? "text-red-600"
+                                  : "text-blue-600"
+                              }`}
+                            >
+                              {item.main.temp.toFixed(0)}
+                            </td>
+
+                            <td className="py-4">
+                              {item.wind.speed.toFixed(0)}
+                            </td>
+                            {/* <td className="py-4">{item.dt_txt.slice(0, -6)}</td> */}
+                            <td className="py-4">
+                              {new Date(item.dt_txt)
+                                .toDateString()
+                                .slice(0, -5)}
+                            </td>
+                            <td className="py-4">
+                              <img
+                                alt=""
+                                src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
+                              />
+                              {item.weather[0].description}
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                </>
+              )}
+            </div>
+
+            <div>
+              {vader.list && (
+                <>
+                  <h1 className="">Veckans Väder</h1>
+                  <table className="mx-auto border-collapse mt-4 shadow-lg">
+                    <thead className="sticky top-0 bg-white">
+                      <tr className="">
+                        <th className="p-4">Temperatur</th>
+                        <th className="p-4">Vindstyrka</th>
+                        <th className="p-4">Datum</th>
+                        <th className="p-4">Väder</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {vader.list
+                        .filter(
+                          (day) =>
+                            new Date(day.dt_txt).getDate() !==
+                              new Date(Date.now()).getDate() &&
+                            new Date(day.dt_txt).getHours() === 12
+                        )
+                        .map((item: vaderLista, index: number) => (
+                          <tr
+                            key={index}
+                            className="shadow border-10 border-black bg-white-500 hover:bg-blue-200 mb-5"
+                          >
+                            <td
+                              className={`py-4 text-4xl ${
+                                parseFloat(item.main.temp.toFixed(0)) >= 1
+                                  ? "text-red-600"
+                                  : "text-blue-600"
+                              }`}
+                            >
+                              {item.main.temp.toFixed(0)}
+                            </td>
+
+                            <td className="py-4">
+                              {item.wind.speed.toFixed(0)}
+                            </td>
+                            {/* <td className="py-4">{item.dt_txt.slice(0, -6)}</td> */}
+                            <td className="py-4">
+                              {new Date(item.dt_txt)
+                                .toDateString()
+                                .slice(0, -5)}
+                            </td>
+                            <td className="py-4">
+                              <img
+                                alt=""
+                                src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
+                              />
+                              {item.weather[0].description}
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
                 </>
               )}
             </div>

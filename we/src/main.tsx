@@ -17,7 +17,7 @@ const router = createBrowserRouter([
       <>
         <App></App>
         <div>
-          <h1>Hello</h1>
+          
           <Link to={"app2"}>Om Oss</Link>
         </div>
         <Search></Search>
