@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useWeatherData } from "../store/useWeatherData";
+import WeatherGraph from "./WeatherGraph";
+// const storeDataWeather = useWeatherData(state: => state.inputs)
+
 
 
 interface Props {
@@ -35,10 +39,26 @@ const ApiKey: string = import.meta.env.VITE_API_KEY;
 
 const ApiWeather: React.FC<Props> = ({ inputs }) => {
 
+  // I denna anropar vi storen
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const updateVader = useWeatherData((state: any) => state.updateVader)
+
+// Denna kallar på store och kollar vad som finns i den.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const vaderStore = useWeatherData((state: any) => state.vader)
+console.log(vaderStore);
+
+
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [vader, setVader]: any = useState(null);
 
+  
+
 const hamtaVader = async (inputs: {
+
+
+
   day: string;
   unit: string;
   ord: string;
@@ -57,10 +77,15 @@ const hamtaVader = async (inputs: {
     console.log(result);
 
     setVader(result);
+    
   } catch (error) {
     console.error("Kunde inte hämta väder data:", error);
   }
 };
+
+useEffect(() => {
+  updateVader(vader)
+},[vader, updateVader])
 
   useEffect(() => {
     console.log("Inputs in ApiWeather:", inputs);
@@ -76,6 +101,9 @@ const hamtaVader = async (inputs: {
   if (!vader || vader.main === null) {
     return <p>Loading...</p>;
   }
+
+
+  
 
   return (
     <>
@@ -126,6 +154,7 @@ const hamtaVader = async (inputs: {
                           alt="Weather Icon"
                         />
                       </div>
+                      <WeatherGraph />
                     </div>
                   </>
                 )}
@@ -150,7 +179,7 @@ const hamtaVader = async (inputs: {
                         .filter(
                           (day) =>
                             new Date(day.dt_txt).getDate() ===
-                              new Date(Date.now()).getDate()
+                            new Date(Date.now()).getDate()
                         )
                         .map((item: vaderLista, index: number) => (
                           <tr
