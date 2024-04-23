@@ -40,13 +40,15 @@ const ApiKey: string = import.meta.env.VITE_API_KEY;
 const ApiWeather: React.FC<Props> = ({ inputs }) => {
 
   // I denna anropar vi storen
+
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const updateVader = useWeatherData((state: any) => state.updateVader)
 
 // Denna kallar på store och kollar vad som finns i den.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const vaderStore = useWeatherData((state: any) => state.vader)
-console.log(vaderStore);
+// const vaderStore = useWeatherData((state: any) => state.vader)
+// console.log(vaderStore);
 
 
 
@@ -82,6 +84,8 @@ const hamtaVader = async (inputs: {
     console.error("Kunde inte hämta väder data:", error);
   }
 };
+
+// Denna useEffekt uppdaterar funktionen som skickar datan till store
 
 useEffect(() => {
   updateVader(vader)
