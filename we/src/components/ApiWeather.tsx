@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useWeatherData } from "../store/useWeatherData";
 import WeatherGraph from "./WeatherGraph";
+import WeatherGraphWeek from "./WeatherGraphWeek";
 // const storeDataWeather = useWeatherData(state: => state.inputs)
 
 
@@ -25,6 +26,7 @@ interface weather {
 interface vaderLista {
   main: {
     temp: number;
+    humidity: number;
   };
   wind: {
     speed: number;
@@ -100,6 +102,11 @@ useEffect(() => {
 
   }, [inputs]); // Lägg till inputs som ett beroende i useEffect
 
+  console.log(typeof vader)
+
+
+  
+
   // Denna if kontrollerar om vader är null eller om vader.main är lika med null om detta är sant returneras loading...
 
   if (!vader || vader.main === null) {
@@ -111,6 +118,7 @@ useEffect(() => {
 
   return (
     <>
+      {/* Prognos för nuvarande position */}
       <div>
         <>
           <>
@@ -158,11 +166,17 @@ useEffect(() => {
                           alt="Weather Icon"
                         />
                       </div>
+
+                      {/* Graf för temperatur */}
+
                       <WeatherGraph />
                     </div>
                   </>
                 )}
             </div>
+
+            {/* Prognos för veckan */}
+
             <div>
               {vader.list && (
                 <>
@@ -172,6 +186,8 @@ useEffect(() => {
                       <tr className="">
                         <th className="p-4">Temperatur</th>
                         <th className="p-4">Vindstyrka</th>
+                        <th className="p-4">Luftfuktighet</th>
+
                         <th className="p-4">Datum</th>
                         <th className="p-4">Väder</th>
                       </tr>
@@ -181,7 +197,7 @@ useEffect(() => {
 
                       {vader.list
                         .filter(
-                          (day) =>
+                          (day: vaderLista) =>
                             new Date(day.dt_txt).getDate() ===
                             new Date(Date.now()).getDate()
                         )
@@ -203,7 +219,7 @@ useEffect(() => {
                             <td className="py-4">
                               {item.wind.speed.toFixed(0)}
                             </td>
-                            {/* <td className="py-4">{item.dt_txt.slice(0, -6)}</td> */}
+                            <td className="py-4">{item.main.humidity}</td>
                             <td className="py-4">
                               {new Date(item.dt_txt)
                                 .toDateString()
@@ -233,6 +249,7 @@ useEffect(() => {
                       <tr className="">
                         <th className="p-4">Temperatur</th>
                         <th className="p-4">Vindstyrka</th>
+                        <th className="p-4">Luftfuktighet</th>
                         <th className="p-4">Datum</th>
                         <th className="p-4">Väder</th>
                       </tr>
@@ -240,7 +257,7 @@ useEffect(() => {
                     <tbody>
                       {vader.list
                         .filter(
-                          (day) =>
+                          (day: vaderLista) =>
                             new Date(day.dt_txt).getDate() !==
                               new Date(Date.now()).getDate() &&
                             new Date(day.dt_txt).getHours() === 12
@@ -263,6 +280,7 @@ useEffect(() => {
                             <td className="py-4">
                               {item.wind.speed.toFixed(0)}
                             </td>
+                            <td className="py-4">{item.main.humidity}</td>
                             {/* <td className="py-4">{item.dt_txt.slice(0, -6)}</td> */}
                             <td className="py-4">
                               {new Date(item.dt_txt)
@@ -282,6 +300,9 @@ useEffect(() => {
                   </table>
                 </>
               )}
+              <div>
+                <WeatherGraphWeek />
+              </div>
             </div>
           </>
         </>

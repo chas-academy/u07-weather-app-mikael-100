@@ -72,11 +72,11 @@ const Search = () => {
               // defaultValue={"1"}
               onChange={formData}
             >
-              <option value="weather">1-Dygn</option>
+              <option value="weather">Just Nu</option>
               {/* <option value="2">2-Dygn</option>
                 <option value="3">3-Dygn</option>
                 <option value="4">4-Dygn</option> */}
-              <option value="forecast">5-Dygn</option>
+              <option value="forecast">Veckans Väder</option>
             </select>
             <select
               name="unit"
