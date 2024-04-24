@@ -15,6 +15,8 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <>
+      
+      
         <App></App>
         
         <div>
@@ -38,6 +40,12 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 );
 
 
+//  <div
+//    className="bg-cover bg-center h-screen"
+//    style={{ backgroundImage: `url('src/bilder/bakgrund1.jpg')` }}
+//  >
+//    {/* Innehåll */}
+//  </div>;
 
 
 // import ReactDOM from "react-dom/client";

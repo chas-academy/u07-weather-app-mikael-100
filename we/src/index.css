@@ -3,8 +3,26 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-image: url('/src/bilder/bakgrund3.jpg');
+  background-size: cover; /* Täck hela sidan, behåll proportionerna */
+  background-repeat: no-repeat; /* Förhindra upprepning av bakgrundsbilden */
+  background-position: center; /* Centrera bakgrundsbilden */
+}
 
+p, button, option {
+  font-family: 'Roboto', sans-serif;
+}
 
+h1 {
+  font-family: 'Nothing You Could Do', cursive;
+}
+  /* //  <div
+//    className="bg-cover bg-center h-screen"
+//    style={{ backgroundImage: `url('src/bilder/bakgrund1.jpg')` }}
+//  >
+//    
+//  </div>; */
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

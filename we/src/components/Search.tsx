@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ApiWeather from "../components/ApiWeather";
 
+
 interface Inputs {
   day: string;
   unit: string;
@@ -62,49 +63,56 @@ const Search = () => {
   return (
     <>
       <form>
-        <div>
-          <div>
-            <h1>Hitta Vädret</h1>
-            <select
-              name="day"
-              id="day"
-              value={inputs.day}
-              // defaultValue={"1"}
-              onChange={formData}
+        <h1 className="text-5xl">Hitta Vädret</h1>
+        <div className="flex justify-center">
+          <div className="bg-black bg-opacity-50 py-6 w-1/2 rounded-lg">
+            <div className="flex justify-center">
+              <div className="mx-2">
+                <select
+                  name="day"
+                  id="day"
+                  value={inputs.day}
+                  onChange={formData}
+                  className="border hover:border-gray-900 px-4 py-2 pr-8 rounded"
+                >
+                  <option value="weather">Just Nu</option>
+                  <option value="forecast">Veckans Väder</option>
+                </select>
+              </div>
+              <div className="mx-2">
+                <select
+                  name="unit"
+                  id="unit"
+                  value={inputs.unit}
+                  onChange={formData}
+                  className="border hover:border-gray-900 px-4 py-2 pr-8 rounded"
+                >
+                  <option value="metric">Celcius</option>
+                  <option value="imperial">Fahrenheit</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <input
+                type="text"
+                placeholder="  Search"
+                className="border-2 border-black rounded-full mt-3 py-2"
+                name="ord"
+                id="ord"
+                // value={inputs.ord}
+                // onChange={formData}
+              />
+            </div>
+            <button
+              type="button"
+              onClick={klickFunktion}
+              className="bg-blue-700 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded mt-3 "
             >
-              <option value="weather">Just Nu</option>
-              {/* <option value="2">2-Dygn</option>
-                <option value="3">3-Dygn</option>
-                <option value="4">4-Dygn</option> */}
-              <option value="forecast">Veckans Väder</option>
-            </select>
-            <select
-              name="unit"
-              id="unit"
-              value={inputs.unit}
-              // defaultValue={"Celcius"}
-              onChange={formData}
-            >
-              <option value="metric">Celcius</option>
-              <option value="imperial">Fahrenheit</option>
-            </select>
-          </div>
-          <div>
-            <input
-              type="text"
-              placeholder="Search"
-              className="border-2 border-black rounded-full"
-              name="ord"
-              id="ord"
-              // value={inputs.ord}
-              // onChange={formData}
-            />
-          </div>
-          <button type="button" onClick={klickFunktion}>
-            Sök
-          </button>
+              Sök
+            </button>
 
-          {/* inclick=(() => klickDunktion)     Kankse uppgradera till denna. denna gör så att inte funktionen triggas vid laddning */}
+            {/* inclick=(() => klickDunktion)     Kankse uppgradera till denna. denna gör så att inte funktionen triggas vid laddning */}
+          </div>
         </div>
       </form>
       <div>

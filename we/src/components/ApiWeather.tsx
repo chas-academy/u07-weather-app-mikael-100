@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useWeatherData } from "../store/useWeatherData";
 import WeatherGraph from "./WeatherGraph";
 import WeatherGraphWeek from "./WeatherGraphWeek";
+import { WiHumidity, WiStrongWind, WiSunrise, WiSunset } from "react-icons/wi";
 // const storeDataWeather = useWeatherData(state: => state.inputs)
 
 
@@ -145,20 +146,32 @@ useEffect(() => {
                       </p>
 
                       <div className="flex">
-                        <p>Vinstryrka: {vader.wind.speed}</p>
-                        <p>Luftfuktighet: {vader.main.humidity}</p>
-                        <p>
-                          Soluppgång:{" "}
-                          {new Date(vader.sys.sunrise * 1000)
-                            .toLocaleTimeString()
-                            .slice(0, -3)}
-                        </p>
-                        <p>
-                          Solnedgång:{" "}
-                          {new Date(vader.sys.sunset * 1000)
-                            .toLocaleTimeString()
-                            .slice(0, -3)}
-                        </p>
+                        <div>
+                          <p>Vinstryrka: {vader.wind.speed}</p>
+                          <WiStrongWind />
+                        </div>
+                        <div>
+                          <p>Luftfuktighet: {vader.main.humidity}</p>
+                          <WiHumidity />
+                        </div>
+                        <div>
+                          <p>
+                            Soluppgång:{" "}
+                            {new Date(vader.sys.sunrise * 1000)
+                              .toLocaleTimeString()
+                              .slice(0, -3)}
+                          </p>
+                          <WiSunrise />
+                        </div>
+                        <div>
+                          <p>
+                            Solnedgång:{" "}
+                            {new Date(vader.sys.sunset * 1000)
+                              .toLocaleTimeString()
+                              .slice(0, -3)}
+                          </p>
+                          <WiSunset />
+                        </div>
                         <p>{vader.weather[0].description}</p>
 
                         <img
