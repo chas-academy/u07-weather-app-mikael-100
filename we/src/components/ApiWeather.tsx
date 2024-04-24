@@ -70,7 +70,7 @@ const hamtaVader = async (inputs: {
   lng: string;
 }) => {
   try {
-    const url = `http://api.openweathermap.org/data/2.5/${inputs.day}?lat=${inputs.lat}&lon=${inputs.lng}&units=${inputs.unit}&q=${inputs.ord}&appid=${ApiKey}`;
+    const url = `https://api.openweathermap.org/data/2.5/${inputs.day}?lat=${inputs.lat}&lon=${inputs.lng}&units=${inputs.unit}&q=${inputs.ord}&appid=${ApiKey}`;
     const response = await fetch(url);
 
     if (!response.ok) {
