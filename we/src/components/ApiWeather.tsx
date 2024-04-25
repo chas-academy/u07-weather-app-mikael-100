@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useWeatherData } from "../store/useWeatherData";
 import WeatherGraph from "./WeatherGraph";
 import WeatherGraphWeek from "./WeatherGraphWeek";
-import { WiHumidity, WiStrongWind, WiSunrise, WiSunset } from "react-icons/wi";
+import { WiCelsius, WiFahrenheit, WiHumidity, WiStrongWind, WiSunrise, WiSunset } from "react-icons/wi";
 // const storeDataWeather = useWeatherData(state: => state.inputs)
 
 
@@ -100,13 +100,23 @@ useEffect(() => {
     {
       hamtaVader(inputs);
     }
+    tempSymbol();
 
   }, [inputs]); // Lägg till inputs som ett beroende i useEffect
 
   console.log(typeof vader)
 
 
-  
+  const tempSymbol = () => {
+    if (inputs.unit === 'metric') {
+      return <WiCelsius />;
+    } else if (inputs.unit === 'imperial') {
+      return <WiFahrenheit />;
+    } else {
+      return null;
+    }
+
+  }
 
   // Denna if kontrollerar om vader är null eller om vader.main är lika med null om detta är sant returneras loading...
 
@@ -121,204 +131,233 @@ useEffect(() => {
     <>
       {/* Prognos för nuvarande position */}
       <div>
-        <>
-          <>
-            <div>
-              {vader.main &&
-                vader.sys &&
-                vader.weather &&
-                vader.wind &&
-                vader.weather[0] &&
-                vader.main.temp &&
-                vader.main.humidity &&
-                vader.name && (
-                  <>
-                    <div className="items-center inline-block">
-                      <p className="text-xl font-bold">{vader.name}</p>
-                      <p
-                        className={`p-6 text-5xl ${
-                          vader.main.temp >= 1
-                            ? "text-red-600"
-                            : "text-blue-600"
-                        }`}
-                      >
-                        {vader.main.temp.toFixed(0)}
-                      </p>
+        <div>
+          {vader.main &&
+            vader.sys &&
+            vader.weather &&
+            vader.wind &&
+            vader.weather[0] &&
+            vader.main.temp &&
+            vader.main.humidity &&
+            vader.name && (
+              <>
+                {/* Temperatur */}
 
-                      <div className="flex">
-                        <div>
-                          <p>Vinstryrka: {vader.wind.speed}</p>
-                          <WiStrongWind />
-                        </div>
-                        <div>
-                          <p>Luftfuktighet: {vader.main.humidity}</p>
-                          <WiHumidity />
-                        </div>
-                        <div>
-                          <p>
-                            Soluppgång:{" "}
-                            {new Date(vader.sys.sunrise * 1000)
-                              .toLocaleTimeString()
-                              .slice(0, -3)}
-                          </p>
-                          <WiSunrise />
-                        </div>
-                        <div>
-                          <p>
-                            Solnedgång:{" "}
-                            {new Date(vader.sys.sunset * 1000)
-                              .toLocaleTimeString()
-                              .slice(0, -3)}
-                          </p>
-                          <WiSunset />
-                        </div>
-                        <p>{vader.weather[0].description}</p>
-
-                        <img
-                          src={`http://openweathermap.org/img/wn/${vader.weather[0].icon}.png`}
-                          alt="Weather Icon"
-                        />
+                <div>
+                  <div className="flex justify-center mt-5">
+                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-10">
+                      <p className="text-4xl text-white  ">{vader.name}</p>
+                      <div className="flex justify-center">
+                        <p
+                          className={`p-6 text-5xl p-0 mt-7 ml-8 ${
+                            vader.main.temp >= 1
+                              ? "text-red-600"
+                              : "text-blue-600"
+                          }`}
+                        >
+                          {vader.main.temp.toFixed(0)}
+                        </p>
+                        <p className="text-8xl  p-0 mt-2 p-0 text-white">
+                          {tempSymbol()}
+                        </p>
                       </div>
-
-                      {/* Graf för temperatur */}
-
-                      <WeatherGraph />
                     </div>
-                  </>
-                )}
-            </div>
+                  </div>
+                </div>
 
-            {/* Prognos för veckan */}
+                {/* Vindstryrka */}
 
-            <div>
-              {vader.list && (
-                <>
-                  <h1 className="">{vader.city.name}</h1>
-                  <table className="mx-auto border-collapse mt-4 shadow-lg">
-                    <thead className="sticky top-0 bg-white">
-                      <tr className="">
-                        <th className="p-4">Temperatur</th>
-                        <th className="p-4">Vindstyrka</th>
-                        <th className="p-4">Luftfuktighet</th>
+                <div>
+                  <div className="flex justify-center mt-5">
+                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-4">
+                      <p className="text-2xl"> {vader.wind.speed}</p>
+                      <WiStrongWind className="text-5xl" />
+                    </div>
+                  </div>
+                </div>
 
-                        <th className="p-4">Datum</th>
-                        <th className="p-4">Väder</th>
+                {/* Luftfunktighet */}
+
+                <div>
+                  <div className="flex justify-center mt-5">
+                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-4">
+                      <p className="text-2xl"> {vader.main.humidity}</p>
+                      <WiHumidity className="text-5xl" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Väderbeskrivning */}
+
+                <div>
+                  <div className="flex justify-center mt-5">
+                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-4">
+                      <img
+                        src={`http://openweathermap.org/img/wn/${vader.weather[0].icon}.png`}
+                        alt="Weather Icon"
+                        className="w-24 h-24"
+                      />
+                      <p className="text-2xl">{vader.weather[0].description}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Soluppgång */}
+
+                <div>
+                  <div className="flex justify-center mt-5">
+                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-4">
+                      <p className="text-2xl">
+                        {new Date(vader.sys.sunrise * 1000)
+                          .toLocaleTimeString()
+                          .slice(0, -3)}
+                      </p>
+                      <WiSunrise className="text-5xl" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Solnedgång */}
+                <div>
+                  <div className="flex justify-center mt-5">
+                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-4">
+                      <p className="text-2xl">
+                        {new Date(vader.sys.sunset * 1000)
+                          .toLocaleTimeString()
+                          .slice(0, -3)}
+                      </p>
+                      <WiSunset className="text-5xl" />
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <WeatherGraph />
+                </div>
+              </>
+            )}
+        </div>
+
+        {/* Prognos för veckan */}
+
+        <div>
+          {vader.list && (
+            <>
+              <h1 className="">{vader.city.name}</h1>
+              <table className="mx-auto border-collapse mt-4 shadow-lg">
+                <thead className="sticky top-0 bg-white">
+                  <tr className="">
+                    <th className="p-4">Temperatur</th>
+                    <th className="p-4">Vindstyrka</th>
+                    <th className="p-4">Luftfuktighet</th>
+
+                    <th className="p-4">Datum</th>
+                    <th className="p-4">Väder</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* {vader.list.filter(day => new Date(day.dt_txt).getDate() !== new Date(Date.now()).getDate() && new Date(day.dt_txt).getHours() === 12 ).map((item: vaderLista, index: number) => ( */}
+
+                  {vader.list
+                    .filter(
+                      (day: vaderLista) =>
+                        new Date(day.dt_txt).getDate() ===
+                        new Date(Date.now()).getDate()
+                    )
+                    .map((item: vaderLista, index: number) => (
+                      <tr
+                        key={index}
+                        className="shadow border-10 border-black bg-white-500 hover:bg-blue-200 mb-5"
+                      >
+                        <td
+                          className={`py-4 text-4xl ${
+                            parseFloat(item.main.temp.toFixed(0)) >= 1
+                              ? "text-red-600"
+                              : "text-blue-600"
+                          }`}
+                        >
+                          {item.main.temp.toFixed(0)}
+                        </td>
+
+                        <td className="py-4">{item.wind.speed.toFixed(0)}</td>
+                        <td className="py-4">{item.main.humidity}</td>
+                        <td className="py-4">
+                          {new Date(item.dt_txt).toDateString().slice(0, -5)}
+                        </td>
+                        <td className="py-4">
+                          <img
+                            alt=""
+                            src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
+                          />
+                          {item.weather[0].description}
+                        </td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {/* {vader.list.filter(day => new Date(day.dt_txt).getDate() !== new Date(Date.now()).getDate() && new Date(day.dt_txt).getHours() === 12 ).map((item: vaderLista, index: number) => ( */}
+                    ))}
+                </tbody>
+              </table>
+            </>
+          )}
+        </div>
 
-                      {vader.list
-                        .filter(
-                          (day: vaderLista) =>
-                            new Date(day.dt_txt).getDate() ===
-                            new Date(Date.now()).getDate()
-                        )
-                        .map((item: vaderLista, index: number) => (
-                          <tr
-                            key={index}
-                            className="shadow border-10 border-black bg-white-500 hover:bg-blue-200 mb-5"
-                          >
-                            <td
-                              className={`py-4 text-4xl ${
-                                parseFloat(item.main.temp.toFixed(0)) >= 1
-                                  ? "text-red-600"
-                                  : "text-blue-600"
-                              }`}
-                            >
-                              {item.main.temp.toFixed(0)}
-                            </td>
+        <div>
+          {vader.list && (
+            <>
+              <h1 className="">Veckans Väder</h1>
+              <table className="mx-auto border-collapse mt-4 shadow-lg">
+                <thead className="sticky top-0 bg-white">
+                  <tr className="">
+                    <th className="p-4">Temperatur</th>
+                    <th className="p-4">Vindstyrka</th>
+                    <th className="p-4">Luftfuktighet</th>
+                    <th className="p-4">Datum</th>
+                    <th className="p-4">Väder</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {vader.list
+                    .filter(
+                      (day: vaderLista) =>
+                        new Date(day.dt_txt).getDate() !==
+                          new Date(Date.now()).getDate() &&
+                        new Date(day.dt_txt).getHours() === 12
+                    )
+                    .map((item: vaderLista, index: number) => (
+                      <tr
+                        key={index}
+                        className="shadow border-10 border-black bg-white-500 hover:bg-blue-200 mb-5"
+                      >
+                        <td
+                          className={`py-4 text-4xl ${
+                            parseFloat(item.main.temp.toFixed(0)) >= 1
+                              ? "text-red-600"
+                              : "text-blue-600"
+                          }`}
+                        >
+                          {item.main.temp.toFixed(0)}
+                        </td>
 
-                            <td className="py-4">
-                              {item.wind.speed.toFixed(0)}
-                            </td>
-                            <td className="py-4">{item.main.humidity}</td>
-                            <td className="py-4">
-                              {new Date(item.dt_txt)
-                                .toDateString()
-                                .slice(0, -5)}
-                            </td>
-                            <td className="py-4">
-                              <img
-                                alt=""
-                                src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
-                              />
-                              {item.weather[0].description}
-                            </td>
-                          </tr>
-                        ))}
-                    </tbody>
-                  </table>
-                </>
-              )}
-            </div>
-
-            <div>
-              {vader.list && (
-                <>
-                  <h1 className="">Veckans Väder</h1>
-                  <table className="mx-auto border-collapse mt-4 shadow-lg">
-                    <thead className="sticky top-0 bg-white">
-                      <tr className="">
-                        <th className="p-4">Temperatur</th>
-                        <th className="p-4">Vindstyrka</th>
-                        <th className="p-4">Luftfuktighet</th>
-                        <th className="p-4">Datum</th>
-                        <th className="p-4">Väder</th>
+                        <td className="py-4">{item.wind.speed.toFixed(0)}</td>
+                        <td className="py-4">{item.main.humidity}</td>
+                        {/* <td className="py-4">{item.dt_txt.slice(0, -6)}</td> */}
+                        <td className="py-4">
+                          {new Date(item.dt_txt).toDateString().slice(0, -5)}
+                        </td>
+                        <td className="py-4">
+                          <img
+                            alt=""
+                            src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
+                          />
+                          {item.weather[0].description}
+                        </td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {vader.list
-                        .filter(
-                          (day: vaderLista) =>
-                            new Date(day.dt_txt).getDate() !==
-                              new Date(Date.now()).getDate() &&
-                            new Date(day.dt_txt).getHours() === 12
-                        )
-                        .map((item: vaderLista, index: number) => (
-                          <tr
-                            key={index}
-                            className="shadow border-10 border-black bg-white-500 hover:bg-blue-200 mb-5"
-                          >
-                            <td
-                              className={`py-4 text-4xl ${
-                                parseFloat(item.main.temp.toFixed(0)) >= 1
-                                  ? "text-red-600"
-                                  : "text-blue-600"
-                              }`}
-                            >
-                              {item.main.temp.toFixed(0)}
-                            </td>
-
-                            <td className="py-4">
-                              {item.wind.speed.toFixed(0)}
-                            </td>
-                            <td className="py-4">{item.main.humidity}</td>
-                            {/* <td className="py-4">{item.dt_txt.slice(0, -6)}</td> */}
-                            <td className="py-4">
-                              {new Date(item.dt_txt)
-                                .toDateString()
-                                .slice(0, -5)}
-                            </td>
-                            <td className="py-4">
-                              <img
-                                alt=""
-                                src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
-                              />
-                              {item.weather[0].description}
-                            </td>
-                          </tr>
-                        ))}
-                    </tbody>
-                  </table>
-                </>
-              )}
-              <div>
-                <WeatherGraphWeek />
-              </div>
-            </div>
-          </>
-        </>
+                    ))}
+                </tbody>
+              </table>
+            </>
+          )}
+          <div>
+            <WeatherGraphWeek />
+          </div>
+        </div>
       </div>
     </>
   );

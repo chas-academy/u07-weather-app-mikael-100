@@ -43,7 +43,7 @@ return (
               bottom: 10,
             }}
           >
-            <XAxis dataKey="name" />
+            {/* <XAxis dataKey="name" /> */}
             <YAxis tickCount={0} interval={0} />
             <Tooltip contentStyle={{ backgroundColor: "#4A5566" }} />
             <Bar
