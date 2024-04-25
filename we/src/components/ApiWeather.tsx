@@ -3,6 +3,8 @@ import { useWeatherData } from "../store/useWeatherData";
 import WeatherGraph from "./WeatherGraph";
 import WeatherGraphWeek from "./WeatherGraphWeek";
 import { WiCelsius, WiFahrenheit, WiHumidity, WiStrongWind, WiSunrise, WiSunset } from "react-icons/wi";
+import { TiWeatherSunny } from "react-icons/ti";
+import { MdDateRange } from "react-icons/md";
 // const storeDataWeather = useWeatherData(state: => state.inputs)
 
 
@@ -145,7 +147,7 @@ useEffect(() => {
 
                 <div>
                   <div className="flex justify-center mt-5">
-                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-10">
+                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-10 w-full w-full md:w-60">
                       <p className="text-4xl text-white  ">{vader.name}</p>
                       <div className="flex justify-center">
                         <p
@@ -164,49 +166,29 @@ useEffect(() => {
                     </div>
                   </div>
                 </div>
-
-                {/* Vindstryrka */}
-
-                <div>
-                  <div className="flex justify-center mt-5">
-                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-4">
-                      <p className="text-2xl"> {vader.wind.speed}</p>
+                <div className="flex justify-center">
+                  <div className="flex flex-wrap flex-col sm:flex-row justify-center sm:space-x-4 w-full">
+                    {/* Vindstryrka */}
+                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-4 flex flex-col items-center mt-4 w-full md:w-60">
+                      <p className="text-2xl">{vader.wind.speed}</p>
                       <WiStrongWind className="text-5xl" />
                     </div>
-                  </div>
-                </div>
-
-                {/* Luftfunktighet */}
-
-                <div>
-                  <div className="flex justify-center mt-5">
-                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-4">
-                      <p className="text-2xl"> {vader.main.humidity}</p>
+                    {/* Luftfuktighet */}
+                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-4 flex flex-col items-center mt-4 w-full md:w-60">
+                      <p className="text-2xl">{vader.main.humidity}</p>
                       <WiHumidity className="text-5xl" />
                     </div>
-                  </div>
-                </div>
-
-                {/* Väderbeskrivning */}
-
-                <div>
-                  <div className="flex justify-center mt-5">
-                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-4">
+                    {/* Väderbeskrivning */}
+                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-4 flex flex-col items-center mt-4 w-full md:w-60">
+                      <p className="text-2xl">{vader.weather[0].description}</p>
                       <img
                         src={`http://openweathermap.org/img/wn/${vader.weather[0].icon}.png`}
                         alt="Weather Icon"
                         className="w-24 h-24"
                       />
-                      <p className="text-2xl">{vader.weather[0].description}</p>
                     </div>
-                  </div>
-                </div>
-
-                {/* Soluppgång */}
-
-                <div>
-                  <div className="flex justify-center mt-5">
-                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-4">
+                    {/* Soluppgång */}
+                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-4 flex flex-col items-center mt-4 w-full md:w-60">
                       <p className="text-2xl">
                         {new Date(vader.sys.sunrise * 1000)
                           .toLocaleTimeString()
@@ -214,13 +196,8 @@ useEffect(() => {
                       </p>
                       <WiSunrise className="text-5xl" />
                     </div>
-                  </div>
-                </div>
-
-                {/* Solnedgång */}
-                <div>
-                  <div className="flex justify-center mt-5">
-                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-4">
+                    {/* Solnedgång */}
+                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-4 flex flex-col items-center mt-4 w-full md:w-60">
                       <p className="text-2xl">
                         {new Date(vader.sys.sunset * 1000)
                           .toLocaleTimeString()
@@ -230,7 +207,12 @@ useEffect(() => {
                     </div>
                   </div>
                 </div>
+
                 <div>
+                  <h1 className="text-5xl mt-8 mb-6">Temperatur över dagen.</h1>
+                </div>
+
+                <div className="sm: mr-10">
                   <WeatherGraph />
                 </div>
               </>
@@ -243,57 +225,85 @@ useEffect(() => {
           {vader.list && (
             <>
               <h1 className="">{vader.city.name}</h1>
-              <table className="mx-auto border-collapse mt-4 shadow-lg">
-                <thead className="sticky top-0 bg-white">
-                  <tr className="">
-                    <th className="p-4">Temperatur</th>
-                    <th className="p-4">Vindstyrka</th>
-                    <th className="p-4">Luftfuktighet</th>
+              <div className="">
+                <table className="mx-auto border-collapse mt-4 shadow-lg sm:w-full">
+                  <thead className="sticky top-0 bg-white">
+                    <tr className="">
+                      <th>
+                        <div className="text-5xl flex items-center justify-center">
+                          {tempSymbol()}
+                        </div>
+                      </th>
+                      <th>
+                        <div className="text-5xl flex items-center justify-center">
+                          <WiStrongWind />
+                        </div>
+                      </th>
+                      <th>
+                        <div className="text-5xl flex items-center justify-center">
+                          <WiHumidity />
+                        </div>
+                      </th>
+                      <th>
+                        <div className="text-5xl flex items-center justify-center">
+                          <MdDateRange />
+                        </div>
+                      </th>
+                      <th>
+                        <div className="text-5xl flex items-center justify-center">
+                          <TiWeatherSunny />
+                        </div>
+                      </th>
+                    </tr>
+                  </thead>
 
-                    <th className="p-4">Datum</th>
-                    <th className="p-4">Väder</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {/* {vader.list.filter(day => new Date(day.dt_txt).getDate() !== new Date(Date.now()).getDate() && new Date(day.dt_txt).getHours() === 12 ).map((item: vaderLista, index: number) => ( */}
+                  <tbody>
+                    {/* {vader.list.filter(day => new Date(day.dt_txt).getDate() !== new Date(Date.now()).getDate() && new Date(day.dt_txt).getHours() === 12 ).map((item: vaderLista, index: number) => ( */}
 
-                  {vader.list
-                    .filter(
-                      (day: vaderLista) =>
-                        new Date(day.dt_txt).getDate() ===
-                        new Date(Date.now()).getDate()
-                    )
-                    .map((item: vaderLista, index: number) => (
-                      <tr
-                        key={index}
-                        className="shadow border-10 border-black bg-white-500 hover:bg-blue-200 mb-5"
-                      >
-                        <td
-                          className={`py-4 text-4xl ${
-                            parseFloat(item.main.temp.toFixed(0)) >= 1
-                              ? "text-red-600"
-                              : "text-blue-600"
-                          }`}
+                    {vader.list
+                      .filter(
+                        (day: vaderLista) =>
+                          new Date(day.dt_txt).getDate() ===
+                          new Date(Date.now()).getDate()
+                      )
+                      .map((item: vaderLista, index: number) => (
+                        <tr
+                          key={index}
+                          className="shadow border-10 border-black bg-white-500 hover:bg-blue-200 mb-5"
                         >
-                          {item.main.temp.toFixed(0)}
-                        </td>
+                          <td
+                            className={`py-4 text-4xl ${
+                              parseFloat(item.main.temp.toFixed(0)) >= 1
+                                ? "text-red-600"
+                                : "text-blue-600"
+                            }`}
+                          >
+                            {item.main.temp.toFixed(0)}
+                          </td>
 
-                        <td className="py-4">{item.wind.speed.toFixed(0)}</td>
-                        <td className="py-4">{item.main.humidity}</td>
-                        <td className="py-4">
-                          {new Date(item.dt_txt).toDateString().slice(0, -5)}
-                        </td>
-                        <td className="py-4">
-                          <img
-                            alt=""
-                            src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
-                          />
-                          {item.weather[0].description}
-                        </td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
+                          <td className="py-">{item.wind.speed.toFixed(0)}</td>
+                          <td className="py-">{item.main.humidity}</td>
+                          <td className="py-">
+                            {new Date(item.dt_txt).toDateString().slice(0, -5)}
+                          </td>
+                          <div className="flex items-center justify-center">
+                            <td className="py-">
+                              <div className="flex items-center justify-center">
+                                <img
+                                  alt=""
+                                  src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
+                                />
+                              </div>
+                              <div className="flex items-center justify-center">
+                                {item.weather[0].description}
+                              </div>
+                            </td>
+                          </div>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
             </>
           )}
         </div>
@@ -305,13 +315,34 @@ useEffect(() => {
               <table className="mx-auto border-collapse mt-4 shadow-lg">
                 <thead className="sticky top-0 bg-white">
                   <tr className="">
-                    <th className="p-4">Temperatur</th>
-                    <th className="p-4">Vindstyrka</th>
-                    <th className="p-4">Luftfuktighet</th>
-                    <th className="p-4">Datum</th>
-                    <th className="p-4">Väder</th>
+                    <th>
+                      <div className="text-5xl flex items-center justify-center">
+                        {tempSymbol()}
+                      </div>
+                    </th>
+                    <th>
+                      <div className="text-5xl flex items-center justify-center">
+                        <WiStrongWind />
+                      </div>
+                    </th>
+                    <th>
+                      <div className="text-5xl flex items-center justify-center">
+                        <WiHumidity />
+                      </div>
+                    </th>
+                    <th>
+                      <div className="text-5xl flex items-center justify-center">
+                        <MdDateRange />
+                      </div>
+                    </th>
+                    <th>
+                      <div className="text-5xl flex items-center justify-center">
+                        <TiWeatherSunny />
+                      </div>
+                    </th>
                   </tr>
                 </thead>
+
                 <tbody>
                   {vader.list
                     .filter(
@@ -335,19 +366,25 @@ useEffect(() => {
                           {item.main.temp.toFixed(0)}
                         </td>
 
-                        <td className="py-4">{item.wind.speed.toFixed(0)}</td>
-                        <td className="py-4">{item.main.humidity}</td>
+                        <td className="py-">{item.wind.speed.toFixed(0)}</td>
+                        <td className="py-">{item.main.humidity}</td>
                         {/* <td className="py-4">{item.dt_txt.slice(0, -6)}</td> */}
-                        <td className="py-4">
+                        <td className="py-">
                           {new Date(item.dt_txt).toDateString().slice(0, -5)}
                         </td>
-                        <td className="py-4">
-                          <img
-                            alt=""
-                            src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
-                          />
-                          {item.weather[0].description}
-                        </td>
+                        <div className="flex items-center justify-center">
+                          <td className="py-">
+                            <div className="flex items-center justify-center">
+                              <img
+                                alt=""
+                                src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
+                              />
+                            </div>
+                            <div className="flex items-center justify-center">
+                              {item.weather[0].description}
+                            </div>
+                          </td>
+                        </div>
                       </tr>
                     ))}
                 </tbody>

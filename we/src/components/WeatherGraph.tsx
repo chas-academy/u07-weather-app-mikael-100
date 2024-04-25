@@ -31,7 +31,6 @@ return (
   <>
     {temp_max && temp_min && feels_like && (
       <>
-        <h1>Temperatur över dagen.</h1>
 
         <ResponsiveContainer width="100%" height={400}>
           <BarChart
@@ -69,6 +68,7 @@ return (
               radius={[10, 10, 0, 0]}
               label={{ fontSize: 30, fill: "#fff", formatter: taBortDecimal }}
               animationDuration={2000}
+              
             />
           </BarChart>
         </ResponsiveContainer>
