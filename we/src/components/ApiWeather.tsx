@@ -277,7 +277,7 @@ useEffect(() => {
                                 new Date(day.dt_txt).getHours() === 12
                             )
                             .map((item: vaderLista, index: number) => (
-                              <tr key={index}>
+                              <tr key={index} className="hover:bg-sky-900">
                                 <td
                                   className={`py-4 text-4xl ${
                                     parseFloat(item.main.temp.toFixed(0)) >= 1
@@ -364,7 +364,7 @@ useEffect(() => {
                               new Date(day.dt_txt).getHours() === 12
                           )
                           .map((item: vaderLista, index: number) => (
-                            <tr key={index}>
+                            <tr key={index} className="hover:bg-sky-900">
                               <td
                                 className={`py-4 text-4xl ${
                                   parseFloat(item.main.temp.toFixed(0)) >= 1

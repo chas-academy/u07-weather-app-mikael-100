@@ -5,6 +5,7 @@ import {
   BarChart,
   Tooltip,
   Bar,
+  Legend,
 } from "recharts";
 
 
@@ -40,6 +41,7 @@ return (
               bottom: 10,
             }}
           >
+            <Legend />
             {/* <XAxis dataKey="name" /> */}
             <Tooltip contentStyle={{ backgroundColor: "#4A5566" }} />
             <Bar
@@ -57,6 +59,7 @@ return (
               radius={[10, 10, 0, 0]}
               label={{ fontSize: 30, fill: "#fff", formatter: taBortDecimal }}
               animationDuration={2000}
+        
             />
             <Bar
               dataKey="main.feels_like"
