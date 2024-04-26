@@ -101,8 +101,7 @@ const Search = () => {
                     className="border-2 border-black rounded mt-3 py-2"
                     name="ord"
                     id="ord"
-                    // value={inputs.ord}
-                    // onChange={formData}
+                   
                   />
                 </div>
                 <button
@@ -113,7 +112,6 @@ const Search = () => {
                   Sök
                 </button>
 
-                {/* inclick=(() => klickDunktion)     Kankse uppgradera till denna. denna gör så att inte funktionen triggas vid laddning */}
               </div>
             </div>
           </div>
@@ -128,8 +126,3 @@ const Search = () => {
 
 export default Search;
 
-// Denna förhindrar bara att form som de annars alltid gör laddar om sidan.
-
-// const gorAttFormInteLaddarOmSidan = (event: React.FormEvent) => {
-//     event.preventDefault();
-// }

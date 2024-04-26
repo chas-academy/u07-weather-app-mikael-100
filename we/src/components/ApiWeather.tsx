@@ -50,11 +50,6 @@ const ApiWeather: React.FC<Props> = ({ inputs }) => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const updateVader = useWeatherData((state: any) => state.updateVader)
 
-// Denna kallar på store och kollar vad som finns i den.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-// const vaderStore = useWeatherData((state: any) => state.vader)
-// console.log(vaderStore);
-
 
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

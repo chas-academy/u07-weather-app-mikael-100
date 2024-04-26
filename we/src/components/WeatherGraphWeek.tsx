@@ -10,7 +10,6 @@ const WeatherGraphWeek: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const anvandVaderData = useWeatherData((state: any) => state.vader);
 
-  console.log("YOOOOOOOOOOOOOOOO",anvandVaderData)
 
 
 //   Denna kod
