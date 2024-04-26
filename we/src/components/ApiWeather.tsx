@@ -121,6 +121,8 @@ useEffect(() => {
     return <p>Loading...</p>;
   }
 
+  // console.log(vader.list.filter((day: vaderLista) => new Date(day.dt_txt).getDate() === new Date(Date.now()).getDate()))
+
 
   
 
@@ -163,19 +165,19 @@ useEffect(() => {
                   </div>
                 </div>
                 <div className="flex justify-center">
-                  <div className="flex flex-wrap flex-col sm:flex-row justify-center sm:space-x-4 w-full">
+                  <div className="flex flex-wrap flex-col sm:flex-row justify-center  w-full">
                     {/* Vindstryrka */}
                     <div className="bg-black rounded-lg text-white bg-opacity-60 p-4 flex flex-col items-center mt-4 w-full md:w-60">
                       <p className="text-2xl">{vader.wind.speed}</p>
                       <WiStrongWind className="text-5xl" />
                     </div>
                     {/* Luftfuktighet */}
-                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-4 flex flex-col items-center mt-4 w-full md:w-60">
+                    <div className="bg-black  rounded-lg text-white bg-opacity-60 p-4 flex flex-col items-center mt-4 w-full md:w-60 md:ml-4 theOddZone:ml-2">
                       <p className="text-2xl">{vader.main.humidity}</p>
                       <WiHumidity className="text-5xl" />
                     </div>
                     {/* Väderbeskrivning */}
-                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-4 flex flex-col items-center mt-4 w-full md:w-60">
+                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-4 flex flex-col items-center mt-4 w-full md:w-60 theOddZone:ml-2">
                       <p className="text-2xl">{vader.weather[0].description}</p>
                       <img
                         src={`http://openweathermap.org/img/wn/${vader.weather[0].icon}.png`}
@@ -184,7 +186,7 @@ useEffect(() => {
                       />
                     </div>
                     {/* Soluppgång */}
-                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-4 flex flex-col items-center mt-4 w-full md:w-60">
+                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-4 flex flex-col items-center mt-4 w-full md:w-60 md:ml-4 theOddZone:ml-0 theOddZone2:ml-2">
                       <p className="text-2xl">
                         {new Date(vader.sys.sunrise * 1000)
                           .toLocaleTimeString()
@@ -193,7 +195,7 @@ useEffect(() => {
                       <WiSunrise className="text-5xl" />
                     </div>
                     {/* Solnedgång */}
-                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-4 flex flex-col items-center mt-4 w-full md:w-60">
+                    <div className="bg-black rounded-lg text-white bg-opacity-60 p-4 flex flex-col items-center mt-4 w-full md:w-60 theOddZone:ml-4 theOddZone2:ml-0">
                       <p className="text-2xl">
                         {new Date(vader.sys.sunset * 1000)
                           .toLocaleTimeString()
@@ -230,7 +232,7 @@ useEffect(() => {
               <>
                 <div className="bg-black rounded-lg text-white bg-opacity-60  mt-5 p-4">
                   <div className="bg-black rounded-lg text-white bg-opacity-60   p-3 pb-6">
-                    <h1 className="">{vader.city.name}</h1>
+                    <h1 className="">Dagens Väder I {vader.city.name}</h1>
                     <div className="">
                       <table className="mx-auto border-collapse mt-4 shadow-lg sm:w-full">
                         <thead className="bg-black">
@@ -267,9 +269,8 @@ useEffect(() => {
                           {vader.list
                             .filter(
                               (day: vaderLista) =>
-                                new Date(day.dt_txt).getDate() !==
-                                  new Date(Date.now()).getDate() &&
-                                new Date(day.dt_txt).getHours() === 12
+                                new Date(day.dt_txt).getDate() ===
+                                new Date(Date.now()).getDate()
                             )
                             .map((item: vaderLista, index: number) => (
                               <tr key={index} className="hover:bg-sky-900">
