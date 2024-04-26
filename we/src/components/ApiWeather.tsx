@@ -239,49 +239,45 @@ useEffect(() => {
                     <div className="">
                       <table className="mx-auto border-collapse mt-4 shadow-lg sm:w-full">
                         <thead className="bg-black">
-                          <tr className="">
-                            <th>
-                              <div className="text-5xl flex items-center justify-center">
+                          <tr className="item-center">
+                            <th className="text-5xl">
+                              <span className="text-5xl flex items-center justify-center">
                                 {tempSymbol()}
-                              </div>
+                              </span>
                             </th>
-                            <th>
-                              <div className="text-5xl flex items-center justify-center">
+                            <th className="text-5xl">
+                              <span className="text-5xl flex items-center justify-center">
                                 <WiStrongWind />
-                              </div>
+                              </span>
                             </th>
-                            <th>
-                              <div className="text-5xl flex items-center justify-center">
+                            <th className="text-5xl">
+                              <span className="text-5xl flex items-center justify-center">
                                 <WiHumidity />
-                              </div>
+                              </span>
                             </th>
-                            <th>
-                              <div className="text-5xl flex items-center justify-center">
+                            <th className="text-5xl">
+                              <span className="text-5xl flex items-center justify-center">
                                 <MdDateRange />
-                              </div>
+                              </span>
                             </th>
-                            <th>
-                              <div className="text-5xl flex items-center justify-center">
+                            <th className="text-5xl">
+                              <span className="text-5xl flex items-center justify-center">
                                 <TiWeatherSunny />
-                              </div>
+                              </span>
                             </th>
                           </tr>
                         </thead>
 
                         <tbody>
-                          {/* {vader.list.filter(day => new Date(day.dt_txt).getDate() !== new Date(Date.now()).getDate() && new Date(day.dt_txt).getHours() === 12 ).map((item: vaderLista, index: number) => ( */}
-
                           {vader.list
                             .filter(
                               (day: vaderLista) =>
-                                new Date(day.dt_txt).getDate() ===
-                                new Date(Date.now()).getDate()
+                                new Date(day.dt_txt).getDate() !==
+                                  new Date(Date.now()).getDate() &&
+                                new Date(day.dt_txt).getHours() === 12
                             )
                             .map((item: vaderLista, index: number) => (
-                              <tr
-                                key={index}
-                                className="shadow border-10 border-black bg-white-500 hover:bg-blue-200 mb-5"
-                              >
+                              <tr key={index}>
                                 <td
                                   className={`py-4 text-4xl ${
                                     parseFloat(item.main.temp.toFixed(0)) >= 1
@@ -291,7 +287,6 @@ useEffect(() => {
                                 >
                                   {item.main.temp.toFixed(0)}
                                 </td>
-
                                 <td className="py-">
                                   {item.wind.speed.toFixed(0)}
                                 </td>
@@ -301,19 +296,15 @@ useEffect(() => {
                                     .toDateString()
                                     .slice(0, -5)}
                                 </td>
-                                <div className="flex items-center justify-center">
-                                  <td className="py-">
-                                    <div className="flex items-center justify-center">
-                                      <img
-                                        alt=""
-                                        src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
-                                      />
-                                    </div>
-                                    <div className="flex items-center justify-center">
-                                      {item.weather[0].description}
-                                    </div>
-                                  </td>
-                                </div>
+                                <td className="flex flex-col items-center">
+                                  <span>
+                                    <img
+                                      alt=""
+                                      src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
+                                    />
+                                  </span>
+                                  <span>{item.weather[0].description}</span>
+                                </td>
                               </tr>
                             ))}
                         </tbody>
@@ -333,33 +324,33 @@ useEffect(() => {
                 <div className="bg-black rounded-lg text-white bg-opacity-60   p-3 pb-6">
                   <h1 className="">Prognosen För Vecka</h1>
                   <div className="">
-                    <table className="mx-auto border-collapse mt-4 shadow-lg sm:w-full">
+                    <table className="border-collapse mt-4 shadow-lg sm:w-full">
                       <thead className="bg-black">
-                        <tr className="">
-                          <th>
-                            <div className="text-5xl flex items-center justify-center">
+                        <tr className="item-center">
+                          <th className="text-5xl">
+                            <span className="text-5xl flex items-center justify-center">
                               {tempSymbol()}
-                            </div>
+                            </span>
                           </th>
-                          <th>
-                            <div className="text-5xl flex items-center justify-center">
+                          <th className="text-5xl">
+                            <span className="text-5xl flex items-center justify-center">
                               <WiStrongWind />
-                            </div>
+                            </span>
                           </th>
-                          <th>
-                            <div className="text-5xl flex items-center justify-center">
+                          <th className="text-5xl">
+                            <span className="text-5xl flex items-center justify-center">
                               <WiHumidity />
-                            </div>
+                            </span>
                           </th>
-                          <th>
-                            <div className="text-5xl flex items-center justify-center">
+                          <th className="text-5xl">
+                            <span className="text-5xl flex items-center justify-center">
                               <MdDateRange />
-                            </div>
+                            </span>
                           </th>
-                          <th>
-                            <div className="text-5xl flex items-center justify-center">
+                          <th className="text-5xl">
+                            <span className="text-5xl flex items-center justify-center">
                               <TiWeatherSunny />
-                            </div>
+                            </span>
                           </th>
                         </tr>
                       </thead>
@@ -373,10 +364,7 @@ useEffect(() => {
                               new Date(day.dt_txt).getHours() === 12
                           )
                           .map((item: vaderLista, index: number) => (
-                            <tr
-                              key={index}
-                              className="shadow border-10 border-black bg-white-500 hover:bg-blue-200 mb-5"
-                            >
+                            <tr key={index}>
                               <td
                                 className={`py-4 text-4xl ${
                                   parseFloat(item.main.temp.toFixed(0)) >= 1
@@ -386,34 +374,29 @@ useEffect(() => {
                               >
                                 {item.main.temp.toFixed(0)}
                               </td>
-
                               <td className="py-">
                                 {item.wind.speed.toFixed(0)}
                               </td>
                               <td className="py-">{item.main.humidity}</td>
-                              {/* <td className="py-4">{item.dt_txt.slice(0, -6)}</td> */}
                               <td className="py-">
                                 {new Date(item.dt_txt)
                                   .toDateString()
                                   .slice(0, -5)}
                               </td>
-                              <div className="flex items-center justify-center">
-                                <td className="py-">
-                                  <div className="flex items-center justify-center">
-                                    <img
-                                      alt=""
-                                      src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
-                                    />
-                                  </div>
-                                  <div className="flex items-center justify-center">
-                                    {item.weather[0].description}
-                                  </div>
-                                </td>
-                              </div>
+                              <td className="flex flex-col items-center">
+                                <span>
+                                  <img
+                                    alt=""
+                                    src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
+                                  />
+                                </span>
+                                <span>{item.weather[0].description}</span>
+                              </td>
                             </tr>
                           ))}
                       </tbody>
                     </table>
+
                     <div className="hidden sm:block bg-black rounded-lg text-white bg-opacity-60   p-3 pb-6 mt-6">
                       <div className=" p-5 mr-5">
                         <WeatherGraphWeek />

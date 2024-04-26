@@ -25,7 +25,6 @@ const WeatherGraphWeek: React.FC = () => {
         tidigareDatum = kortDatum;
         return kortDatum;
     }
-
     
 
     return " ";
@@ -36,12 +35,16 @@ const WeatherGraphWeek: React.FC = () => {
       {anvandVaderData && (
         <ResponsiveContainer width="100%" aspect={3}>
           <LineChart data={anvandVaderData.list} width={500} height={300}>
-            <XAxis dataKey="dt_txt" tickFormatter={visaDatumKortEnGang} tickLine={{strokeWidth: 0}}/>
+            <XAxis
+              dataKey="dt_txt"
+              tickFormatter={visaDatumKortEnGang}
+              tickLine={{ strokeWidth: 0 }}
+            />
             <YAxis />
             <Tooltip />
             <Line
               dataKey="main.temp_max"
-              stroke="#FF0000"
+              stroke="#FE5555"
               name="Max"
               strokeWidth={3}
               animationDuration={10000}
@@ -51,7 +54,7 @@ const WeatherGraphWeek: React.FC = () => {
 
             <Line
               dataKey="main.temp_min"
-              stroke="#000000"
+              stroke="#177FD9"
               name="Min"
               strokeWidth={3}
               animationDuration={10000}
@@ -60,7 +63,7 @@ const WeatherGraphWeek: React.FC = () => {
             />
             <Line
               dataKey="main.feels_like"
-              stroke="#0000FF"
+              stroke="#0BCE06"
               name="Känns som"
               strokeWidth={3}
               animationDuration={10000}
