@@ -3,12 +3,10 @@ import App from "./App.tsx";
 import "./index.css";
 import Search from "./components/Search.tsx";
 import {
-  Link,
   Outlet,
   RouterProvider,
   createBrowserRouter,
 } from "react-router-dom";
-import Test from "./components/Test.tsx";
 // import GeolocationComponent from "./pages/geolacation/GeolocationComponent.tsx";
 
 const router = createBrowserRouter([
