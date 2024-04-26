@@ -331,7 +331,7 @@ useEffect(() => {
             <>
               <div className="bg-black rounded-lg text-white bg-opacity-60  mt-5 p-4">
                 <div className="bg-black rounded-lg text-white bg-opacity-60   p-3 pb-6">
-                  <h1 className="">{vader.city.name}</h1>
+                  <h1 className="">Prognosen För Vecka</h1>
                   <div className="">
                     <table className="mx-auto border-collapse mt-4 shadow-lg sm:w-full">
                       <thead className="bg-black">
