@@ -2,11 +2,9 @@ import React from "react";
 import { useWeatherData } from "../store/useWeatherData";
 import {
   ResponsiveContainer,
-  XAxis,
   BarChart,
   Tooltip,
   Bar,
-  YAxis,
 } from "recharts";
 
 
