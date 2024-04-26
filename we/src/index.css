@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 body {
-  background-image: url('/src/bilder/bakgrund3.jpg');
+  background-image: url('/src/bilder/bg2.jpg');
   background-size: cover; /* Täck hela sidan, behåll proportionerna */
   background-repeat: no-repeat; /* Förhindra upprepning av bakgrundsbilden */
   background-position: center; /* Centrera bakgrundsbilden */

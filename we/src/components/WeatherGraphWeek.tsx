@@ -26,6 +26,8 @@ const WeatherGraphWeek: React.FC = () => {
         return kortDatum;
     }
 
+    
+
     return " ";
   };
 

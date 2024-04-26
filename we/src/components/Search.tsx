@@ -63,11 +63,11 @@ const Search = () => {
   return (
     <>
       <div>
-        <h1 className="text-5xl">Hitta Vädret</h1>
+        <h1 className="text-5xl mb-7">HITTA VÄDRET</h1>
         <form className="flex justify-center items-center">
           <div className="flex items-center">
             <div className="flex justify-center sm:flex-col items-center">
-              <div className="bg-black bg-opacity-50 p-9 rounded-lg">
+              <div className="bg-black bg-opacity-60 p-9 rounded-lg">
                 <div className="flex">
                   <div className="mx-2">
                     <select
@@ -98,7 +98,7 @@ const Search = () => {
                   <input
                     type="text"
                     placeholder="  Search"
-                    className="border-2 border-black rounded-full mt-3 py-2"
+                    className="border-2 border-black rounded mt-3 py-2"
                     name="ord"
                     id="ord"
                     // value={inputs.ord}
@@ -119,7 +119,6 @@ const Search = () => {
           </div>
         </form>
       </div>
-
       <div>
         <ApiWeather inputs={inputs} />
       </div>

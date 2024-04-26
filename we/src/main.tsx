@@ -20,9 +20,7 @@ const router = createBrowserRouter([
       
         <App></App>
         
-        <div>
-          <Link to={"app2"}>Om Oss</Link>
-        </div>
+      
         <Outlet></Outlet>
       </>
     ),
